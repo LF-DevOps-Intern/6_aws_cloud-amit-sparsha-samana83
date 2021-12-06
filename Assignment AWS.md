@@ -154,7 +154,7 @@ ssh -i "team-5-keypair.pem" ec2-user@ec2-54-163-188-228.compute-1.amazonaws.com
 
 ```
 
-![Untitled](Untitled%204f9f5b64965a410e91e6db4c08aa4bb7/Untitled%209.png)
+![Untitled](https://github.com/LF-DevOps-Intern/6_aws_cloud-amit-sparsha-samana83/blob/main/images/Untitled%209.png)
 
 2.1.10 Update the repository
 

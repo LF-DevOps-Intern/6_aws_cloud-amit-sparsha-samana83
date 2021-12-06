@@ -1,4 +1,3 @@
-
 # Assignment AWS
 
 ### Requirements:
@@ -21,7 +20,7 @@ Size: `10Gi`
 
 Root Volume: `no` (should be detachable)
 
-Tags: 
+Tags:
 
 Team-Name: `intern-5`
 
@@ -45,7 +44,7 @@ Name: `team-5-<resource-name>`
 
 1.2 Create VPC
 
-We create a VPC with CIDR 10.15.{8*team_number}.0/22 
+We create a VPC with CIDR 10.15.{8\*team_number}.0/22
 
 Since we are team number 6 the required CIDR is `10.15.40.0/22`
 
@@ -81,7 +80,7 @@ Since we are team number 6 the required CIDR is `10.15.40.0/22`
 
 ![Untitled](Untitled%204f9f5b64965a410e91e6db4c08aa4bb7/Untitled%204.png)
 
-2.1.5 Tag the EC2 instance, along with the Volume  created above
+2.1.5 Tag the EC2 instance, along with the Volume created above
 
 ![Untitled](Untitled%204f9f5b64965a410e91e6db4c08aa4bb7/Untitled%205.png)
 
@@ -109,3 +108,26 @@ ssh -i "team-5-keypair.pem" ec2-user@ec2-54-163-188-228.compute-1.amazonaws.com
 ```
 
 ![Untitled](Untitled%204f9f5b64965a410e91e6db4c08aa4bb7/Untitled%209.png)
+
+2.1.10 Update the repository
+
+![Untitled](https://github.com/LF-DevOps-Intern/6_aws_cloud-amit-sparsha-samana83/blob/main/images/Untitled%2014.png)
+
+![Untitled](https://github.com/LF-DevOps-Intern/6_aws_cloud-amit-sparsha-samana83/blob/main/images/Untitled%2015.png)
+
+2.1.11 Setup EPEL repo
+
+```docker
+sudo amazon-linux-extras install epel
+```
+
+2.1.12 Install `openvpn` package:
+
+```docker
+sudo yum update
+sudo yum install openvpn
+```
+
+![Untitled](https://github.com/LF-DevOps-Intern/6_aws_cloud-amit-sparsha-samana83/blob/main/images/Untitled%2016.png)
+
+![Untitled](https://github.com/LF-DevOps-Intern/6_aws_cloud-amit-sparsha-samana83/blob/main/images/Untitled%2017.png)

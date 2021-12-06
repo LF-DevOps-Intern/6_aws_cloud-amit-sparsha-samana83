@@ -1,4 +1,3 @@
-
 # Assignment AWS
 
 ### Requirements:
@@ -63,43 +62,43 @@ Since we are team number 6 the required CIDR is `10.15.40.0/22`
 
 2.1 Lauch EC2 Instance
 
-![Untitled](Untitled%204f9f5b64965a410e91e6db4c08aa4bb7/Untitled.png)
+![Untitled](images/Untitled%204.png)
 
 2.1.1 Select AMI as Amazon Linux 2
 
-![Untitled](Untitled%204f9f5b64965a410e91e6db4c08aa4bb7/Untitled%201.png)
+![Untitled](images/Untitled%205.png)
 
 2.1.2 Choose Instance type as t2.micro
 
-![Untitled](Untitled%204f9f5b64965a410e91e6db4c08aa4bb7/Untitled%202.png)
+![Untitled](images/Untitled%206.png)
 
 2.1.3 Select the VPC to be default VPC
 
-![Untitled](Untitled%204f9f5b64965a410e91e6db4c08aa4bb7/Untitled%203.png)
+![Untitled](images/Untitled%207.png)
 
 2.1.4 Add General Purpose detachable EBS volume
 
-![Untitled](Untitled%204f9f5b64965a410e91e6db4c08aa4bb7/Untitled%204.png)
+![Untitled](images/Untitled%208.png)
 
 2.1.5 Tag the EC2 instance, along with the Volume  created above
 
-![Untitled](Untitled%204f9f5b64965a410e91e6db4c08aa4bb7/Untitled%205.png)
+![Untitled](images/Untitled%209.png)
 
 2.1.6 Allow EC2 instance to be publicly accessible
 
 Configure Security Group to allow SSH from everywhere
 
-![Untitled](Untitled%204f9f5b64965a410e91e6db4c08aa4bb7/Untitled%206.png)
+![Untitled](images/Untitled%2010.png)
 
 2.1.7 Review and Launch the Instance
 
-![Untitled](Untitled%204f9f5b64965a410e91e6db4c08aa4bb7/Untitled%207.png)
+![Untitled](images/Untitled%2011.png)
 
 2.1.8 Create `ssh` key-pair and download the private key to access the instance
 
 Created keypair before launching the instance
 
-![Untitled](Untitled%204f9f5b64965a410e91e6db4c08aa4bb7/Untitled%208.png)
+![Untitled](images/Untitled%2012.png)
 
 2.1.9 Change the private key permission and connect to the EC2 instance
 
@@ -108,4 +107,27 @@ chmod 400 team-5-keypair.pem
 ssh -i "team-5-keypair.pem" ec2-user@ec2-54-163-188-228.compute-1.amazonaws.com
 ```
 
-![Untitled](Untitled%204f9f5b64965a410e91e6db4c08aa4bb7/Untitled%209.png)
+![Untitled](images/Untitled%2013.png)
+
+2.1.10 Update the repository
+
+![Untitled](images/Untitled%2014.png)
+
+![Untitled](images/Untitled%2015.png)
+
+2.1.11 Setup EPEL repo
+
+```docker
+sudo amazon-linux-extras install epel
+```
+
+2.1.12 Install `openvpn` package:
+
+```docker
+sudo yum update
+sudo yum install openvpn
+```
+
+![Untitled](images/Untitled%2016.png)
+
+![Untitled](images/Untitled%2017.png)

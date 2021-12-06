@@ -132,3 +132,31 @@ Configure Security Group to allow SSH from everywhere
 ​
 
 2.1.8 Create `ssh` key-pair and download the private key to access the instance
+
+​
+
+Created keypair before launching the instance
+
+​
+
+![Untitled](images/Untitled%2012.png)
+
+​
+
+2.1.9 Change the private key permission and connect to the EC2 instance
+
+​
+
+```bash
+
+chmod 400 team-5-keypair.pem
+
+ssh -i "team-5-keypair.pem" ec2-user@ec2-54-163-188-228.compute-1.amazonaws.com
+
+```
+
+​
+
+![Untitled](images/Untitled%2013.png)
+
+​

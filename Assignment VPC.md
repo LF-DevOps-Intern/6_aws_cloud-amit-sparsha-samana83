@@ -311,7 +311,7 @@ aws ec2 authorize-security-group-ingress --group-id sg-0c5a36f528ca0731a --proto
 done
 ```
 
-Adding Security Group Ruled for our IP
+Adding Security Group Rules for our IP
 
 ```bash
 #!/bin/bash

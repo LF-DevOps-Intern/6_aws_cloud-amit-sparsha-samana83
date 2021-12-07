@@ -153,7 +153,23 @@ Verify that EIP has been allocated to the NAT Gateway
 
 ![https://i.imgur.com/dHxRlTj.png](https://i.imgur.com/dHxRlTj.png)
 
+- Create S3 VPC Endpoint and add its route to both public and private Route tables.
 
+Creating  s3 endpoint.
+
+![Untitled](images/Untitled%206.png)
+
+![Untitled](images/Untitled%207.png)
+
+configuring route tables to add s3's route to both private and public route tables
+
+![Untitled](images/Untitled%208.png)
+
+![Untitled](images/Untitled%209.png)
+
+![Untitled](images/Untitled%2010.png)
+
+![Untitled](images/Untitled%2011.png)
 
 Create EC2 inside Public Subnet
 
@@ -162,6 +178,44 @@ Create EC2 inside Public Subnet
 ![https://i.imgur.com/AqFyZtJ.png](https://i.imgur.com/AqFyZtJ.png)
 
 ![https://i.imgur.com/oLO5OCo.png](https://i.imgur.com/oLO5OCo.png)
+
+Check the route in the route tables
+
+Public Route Table
+
+![Untitled](images/Untitled%2012.png)
+
+Private Route Table
+
+![Untitled](images/Untitled%2013.png)
+
+- Verify the connectivity through S3 VPC Endpoint
+
+Install `aws` CLI in the private instance
+
+![Untitled](images/Untitled%2014.png)
+
+Configure it with credentials (although this is not good practice we don't have permission for IAM Role)
+
+![Untitled](images/Untitled%2015.png)
+
+Then remove the route to NAT gateway for private route table
+
+New Private route table is as:
+
+![Untitled](images/Untitled%2016.png)
+
+Try to access [google.com](http://google.com) from the instance it should timeout
+
+![Untitled](images/Untitled%2017.png)
+
+Try to access s3 service from the private instance
+
+```bash
+aws s3 ls
+```
+
+![Untitled](images/Untitled%2018.png)
 
 - Spin up simple http server @ 9099 port and verify it is accessible from public.
 
@@ -179,7 +233,7 @@ Access the web server from the browser
 
 ![https://i.imgur.com/yH7wufo.png](https://i.imgur.com/yH7wufo.png)
 
-- Install and, open ports required to use it for these CIDR ranges: 27,43,45,72,103,110,112,124,139,150,163,202.0.0.0/8 and your own IPs
+- Install and, open ports required to use it for these CIDR ranges: `27,43,45,72,103,110,112,124,139,150,163,202.0.0.0/8` and your own IPs
 
 Install openvpn server
 
@@ -188,7 +242,7 @@ sudo apt update
 sudo apt install openvpn
 ```
 
-![Untitled](images/Untitled%2012.png)
+![Untitled](images/Untitled%2019.png)
 
 Open the required ports in linux firewall using `ufw`
 
@@ -196,7 +250,7 @@ Open the required ports in linux firewall using `ufw`
 sudo ufw allow 1194/udp
 ```
 
-![Untitled](images/Untitled%2013.png)
+![Untitled](images/Untitled%2020.png)
 
 Open the required ports in Public Security Group
 
@@ -235,7 +289,7 @@ ip=list(map(lambda a: str(a)+'.0.0.0/8',prefix))
 print('{'+','.join(ip)+'}')
 ```
 
-![Untitled](images/Untitled%2014.png)
+![Untitled](images/Untitled%2021.png)
 
 Adding Security Group Rules for the given CIDR
 
@@ -257,23 +311,23 @@ aws ec2 authorize-security-group-ingress --group-id sg-0c5a36f528ca0731a --proto
 done
 ```
 
-![Untitled](images/Untitled%2015.png)
+![Untitled](images/Untitled%2022.png)
 
 Verify that security group rules have been added in the console
 
-![Untitled](images/Untitled%2016.png)
+![Untitled](images/Untitled%2023.png)
 
 - Launch Instance in Public Subnet
 
-![Untitled](images/Untitled%2017.png)
+![Untitled](images/Untitled%2024.png)
 
 - Launch another EC2 Instance in Private Subnet
 
-![Untitled](images/Untitled%2018.png)
+![Untitled](images/Untitled%2025.png)
 
 View the Created instance
 
-![Untitled](images/Untitled%2019.png)
+![Untitled](images/Untitled%2026.png)
 
 - Install `postgres` server in private ec2 instance
 
@@ -307,7 +361,7 @@ ssh -A -i team-5-keypair.pem ubuntu@54.166.247.5
 
 - Configure Private Security group to allow `postgres` traffic (port `5432/tcp`only from VPC i.e `10.15.40.0/22`
 
-![Untitled](images/Untitled%2020.png)
+![Untitled](images/Untitled%2027.png)
 
 SSH into private EC2 instance
 
@@ -315,7 +369,7 @@ SSH into private EC2 instance
 ssh ubuntu@10.15.40.239
 ```
 
-![Untitled](images/Untitled%2021.png)
+![Untitled](images/Untitled%2028.png)
 
 - Allow `ssh` and `postgres` traffic on the firewall
 
@@ -324,7 +378,7 @@ sudo ufw allow 22/tcp
 sudo ufw allow 5432/tcp
 ```
 
-![Untitled](images/Untitled%2022.png)
+![Untitled](images/Untitled%2029.png)
 
 - Install postgresql
 
@@ -333,7 +387,7 @@ sudo apt update
 sudo apt install postgresql postgresql-contrib
 ```
 
-![Untitled](images/Untitled%2023.png)
+![Untitled](images/Untitled%2030.png)
 
 - Configure `postgres`
 
@@ -347,11 +401,11 @@ Insert/Modify  the following line in configuration file `/etc/postgresql/12/main
 
 `hostnossl    all          all            10.15.40.0/22  md5`
 
-![Untitled](images/Untitled%2024.png)
+![Untitled](images/Untitled%2031.png)
 
 - Also modify the private security group to allow only incoming traffic from VPC.
 
-![Untitled](images/Untitled%2025.png)
+![Untitled](images/Untitled%2032.png)
 
 **This will allow only connections from the VPC.**
 
@@ -369,4 +423,4 @@ Connect to `postgres` instance in the private instance from public instance
 psql -h 10.15.40.239 -p 5432 -U postgres
 ```
 
-![Untitled](images/Untitled%2026.png)
+![Untitled](images/Untitled%2033.png)

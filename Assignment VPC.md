@@ -159,25 +159,27 @@ Creating  s3 endpoint.
 
 ![Untitled](images/Untitled%206.png)
 
+Selecting the VPC
+
 ![Untitled](images/Untitled%207.png)
 
-configuring route tables to add s3's route to both private and public route tables
+Configuring route tables to add s3's route to both private and public route tables
 
 ![Untitled](images/Untitled%208.png)
 
+Tagging
+
 ![Untitled](images/Untitled%209.png)
+
+Endpoint Created
 
 ![Untitled](images/Untitled%2010.png)
 
+View Endpoint
+
 ![Untitled](images/Untitled%2011.png)
 
-Create EC2 inside Public Subnet
-
-- Allow SSH ingress traffic for your own IPs only.
-
-![https://i.imgur.com/AqFyZtJ.png](https://i.imgur.com/AqFyZtJ.png)
-
-![https://i.imgur.com/oLO5OCo.png](https://i.imgur.com/oLO5OCo.png)
+- Verify the connectivity through S3 VPC Endpoint
 
 Check the route in the route tables
 
@@ -188,8 +190,6 @@ Public Route Table
 Private Route Table
 
 ![Untitled](images/Untitled%2013.png)
-
-- Verify the connectivity through S3 VPC Endpoint
 
 Install `aws` CLI in the private instance
 
@@ -217,6 +217,16 @@ aws s3 ls
 
 ![Untitled](images/Untitled%2018.png)
 
+- Create EC2 inside Public Subnet
+
+![Untitled](images/Untitled%2019.png)
+
+Allow SSH ingress traffic for your own IPs only.
+
+![https://i.imgur.com/AqFyZtJ.png](https://i.imgur.com/AqFyZtJ.png)
+
+![https://i.imgur.com/oLO5OCo.png](https://i.imgur.com/oLO5OCo.png)
+
 - Spin up simple http server @ 9099 port and verify it is accessible from public.
 
 ```docker
@@ -242,7 +252,7 @@ sudo apt update
 sudo apt install openvpn
 ```
 
-![Untitled](images/Untitled%2019.png)
+![Untitled](images/Untitled%2020.png)
 
 Open the required ports in linux firewall using `ufw`
 
@@ -250,7 +260,7 @@ Open the required ports in linux firewall using `ufw`
 sudo ufw allow 1194/udp
 ```
 
-![Untitled](images/Untitled%2020.png)
+![Untitled](images/Untitled%2021.png)
 
 Open the required ports in Public Security Group
 
@@ -289,7 +299,7 @@ ip=list(map(lambda a: str(a)+'.0.0.0/8',prefix))
 print('{'+','.join(ip)+'}')
 ```
 
-![Untitled](images/Untitled%2021.png)
+![Untitled](images/Untitled%2022.png)
 
 Adding Security Group Rules for the given CIDR
 
@@ -311,13 +321,9 @@ aws ec2 authorize-security-group-ingress --group-id sg-0c5a36f528ca0731a --proto
 done
 ```
 
-![Untitled](images/Untitled%2022.png)
-
-Verify that security group rules have been added in the console
-
 ![Untitled](images/Untitled%2023.png)
 
-- Launch Instance in Public Subnet
+Verify that security group rules have been added in the console
 
 ![Untitled](images/Untitled%2024.png)
 
@@ -360,6 +366,7 @@ ssh -A -i team-5-keypair.pem ubuntu@54.166.247.5
 ![sFjh2sB9kA9i07HK-YecrBw_10_cacheKey=Drawing_sFjh2sB9kA9i07HK-YecrBw_10_624_307.png](images/sFjh2sB9kA9i07HK-YecrBw_10_cacheKeyDrawing_sFjh2sB9kA9i07HK-YecrBw_10_624_307.png)
 
 - Configure Private Security group to allow `postgres` traffic (port `5432/tcp`only from VPC i.e `10.15.40.0/22`
+- 
 
 ![Untitled](images/Untitled%2027.png)
 
@@ -403,10 +410,6 @@ Insert/Modify  the following line in configuration file `/etc/postgresql/12/main
 
 ![Untitled](images/Untitled%2031.png)
 
-- Also modify the private security group to allow only incoming traffic from VPC.
-
-![Untitled](images/Untitled%2032.png)
-
 **This will allow only connections from the VPC.**
 
 Exit out of the private instance into public instance again
@@ -423,4 +426,4 @@ Connect to `postgres` instance in the private instance from public instance
 psql -h 10.15.40.239 -p 5432 -U postgres
 ```
 
-![Untitled](images/Untitled%2033.png)
+![Untitled](images/Untitled%2032.png)

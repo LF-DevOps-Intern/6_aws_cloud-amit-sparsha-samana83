@@ -153,23 +153,7 @@ Verify that EIP has been allocated to the NAT Gateway
 
 ![https://i.imgur.com/dHxRlTj.png](https://i.imgur.com/dHxRlTj.png)
 
-- Create S3 VPC Endpoint and add its route to both public and private Route tables.
 
-Creating  s3 endpoint.
-
-![Untitled](images/Untitled%206.png)
-
-![Untitled](images/Untitled%207.png)
-
-configuring route tables to add s3's route to both private and public route tables
-
-![Untitled](images/Untitled%208.png)
-
-![Untitled](images/Untitled%209.png)
-
-![Untitled](images/Untitled%2010.png)
-
-![Untitled](images/Untitled%2011.png)
 
 Create EC2 inside Public Subnet
 

@@ -16,19 +16,19 @@
 
 Create route53 hosted zone
 
-![Untitled](cloud-day-4-lb-dns%20c6455ea4515d47d9ae4f0947f802da30/Untitled%2018.png)
+![Untitled](images/Untitled%2018.png)
 
 - Update the Nameservers to be Route 53 Nameservers
 
-![Untitled](cloud-day-4-lb-dns%20c6455ea4515d47d9ae4f0947f802da30/Untitled%2019.png)
+![Untitled](images/Untitled%2019.png)
 
 - Verify that the changes has been propagated
 
-![Untitled](cloud-day-4-lb-dns%20c6455ea4515d47d9ae4f0947f802da30/Untitled%2020.png)
+![Untitled](images/Untitled%2020.png)
 
 Completely Propagated
 
-![Untitled](cloud-day-4-lb-dns%20c6455ea4515d47d9ae4f0947f802da30/Untitled%2021.png)
+![Untitled](images/Untitled%2021.png)
 
 - Create `team-5` subdomain for the above domain
 

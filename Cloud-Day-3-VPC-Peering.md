@@ -18,6 +18,32 @@ Member3: `Samana Pokhrel`
 
 Name: `team-5-<resource-name>`
 
+1. VPC peer from your team’s VPC to next team ie A->B, B->C, …, E->A and allow both direction VPC Traffic.
+    
+    
+    Create E to A peering
+    
+    ![https://i.imgur.com/KoU3YhI.png](https://i.imgur.com/KoU3YhI.png)
+    
+    Accepting the peering request
+    
+    ![https://i.imgur.com/UC0C7ge.png](https://i.imgur.com/UC0C7ge.png)
+    
+    We can view the the peering connection created and active.
+    
+    ![Untitled](images/Untitled.png)
+    
+     
+    
+    Now, Add route to peered VPC in **private Route Table** of our VPC 
+    
+    ![Untitled](images/Untitled%201.png)
+    
+    Similarly, Add route to our VPC in team a's Private Route Table
+    
+    ![Untitled](images/Untitled%202.png)
+    
+
 View the Route Tables
 
 ![Untitled](images/Untitled%203.png)
@@ -50,6 +76,39 @@ Ping `team-1`'s private instance from our public instance
 
 ![Untitled](images/Untitled%209.png)
 
+1. Create RDS cluster and instance of PostgreSQL.
+    
+    Select Postgres Database
+    
+    ![https://i.imgur.com/1NkC8w9.png](https://i.imgur.com/1NkC8w9.png)
+    
+    - Deploy in private subnet.
+    
+    Create Subnet group with Private subnets only
+    
+    ![Untitled](images/Untitled%2010.png)
+    
+    List the subnets in the subnet group
+    
+    ![Untitled](images/Untitled%2011.png)
+    
+    Choose required vpc and subnet group
+    
+    ![https://i.imgur.com/jJKwzL2.png](https://i.imgur.com/jJKwzL2.png)
+    
+    We can verify that our database has been created 
+    
+    ![https://i.imgur.com/e5a9NSr.png](https://i.imgur.com/e5a9NSr.png)
+    
+    In private subnet only
+    
+    ![Untitled](images/Untitled%2012.png)
+    
+    - In your private EC2. Connect to the RDS Postgresql.
+    
+    Allow connection to PostgreSQL on the security group
+    
+    ![https://i.imgur.com/ijYmgy6.png](https://i.imgur.com/ijYmgy6.png)
     
     Finally we can connect to this database from our private instance with following command
     
@@ -58,13 +117,13 @@ Ping `team-1`'s private instance from our public instance
          --port=5432 --username=team5 --password --dbname=postgres
     ```
     
-    ![Untitled](images/Untitled%2011.png)
+    ![Untitled](images/Untitled%2013.png)
     
     (Optional) Connecting to the RDS instance of another team (`team-1`)
     
     Edit `team-1`'s SG to allow `postgres` traffic from our VPC
     
-    ![Untitled](images/Untitled%2012.png)
+    ![Untitled](images/Untitled%2014.png)
     
     Similarly, we can connect to `team-1`'s database from our private instance with following command
     
@@ -73,7 +132,7 @@ Ping `team-1`'s private instance from our public instance
          --port=5432 --username=postgres --password --dbname=postgres
     ```
     
-    ![Untitled](images/Untitled%2013.png)
+    ![Untitled](images/Untitled%2015.png)
     
 2. Install AWS CLIv2 and config lft-training profile.
 
@@ -86,11 +145,11 @@ unzip awscliv2.zip
 sudo ./aws/install
 ```
 
-![Untitled](images/Untitled%2014.png)
+![Untitled](images/Untitled%2016.png)
 
 Update the `~/.aws/credentials` file with Access Key ID and Secret Access Key as follows:
 
-![Untitled](images/Untitled%2015.png)
+![Untitled](images/Untitled%2017.png)
 
 Use the `lft-training` for the current bash session
 
@@ -104,14 +163,14 @@ Test access to aws
 aws s3 ls
 ```
 
-![Untitled](images/Untitled%2016.png)
+![Untitled](images/Untitled%2018.png)
 
 1. Create ECR and upload your Docker image created during Docker assignment Q3. Each member must upload an image (in team’s ECR repo) with their name as tag.
     
     
     Create a private repository in ECR
     
-    ![Untitled](images/Untitled%2017.png)
+    ![Untitled](images/Untitled%2019.png)
     
     Pull exisiting images from `dockerhub`
     
@@ -122,7 +181,7 @@ aws s3 ls
     docker images
     ```
     
-    ![Untitled](images/Untitled%2018.png)
+    ![Untitled](images/Untitled%2020.png)
     
     Authenticate with ECR docker registry
     
@@ -130,7 +189,7 @@ aws s3 ls
     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 949263681218.dkr.ecr.us-east-1.amazonaws.com
     ```
     
-    ![Untitled](images/Untitled%2019.png)
+    ![Untitled](images/Untitled%2021.png)
     
     Tag and push the images to the registry
     
@@ -145,13 +204,13 @@ aws s3 ls
     
     ```
     
-    ![Untitled](images/Untitled%2020.png)
+    ![Untitled](images/Untitled%2022.png)
     
-    ![Untitled](images/Untitled%2021.png)
+    ![Untitled](images/Untitled%2023.png)
     
     View the images in ECR private repository
     
-    ![Untitled](images/Untitled%2022.png)
+    ![Untitled](images/Untitled%2024.png)
     
 2. Deploy **one*** of uploaded image in ECS Fargate.
     - Create task definition.
@@ -160,61 +219,61 @@ aws s3 ls
     
     **Create a Cluster**
     
-    ![Untitled](images/Untitled%2023.png)
+    ![Untitled](images/Untitled%2025.png)
     
     **Select Cluster template that can be used with Fargate**
     
-    ![Untitled](images/Untitled%2024.png)
+    ![Untitled](images/Untitled%2026.png)
     
     **Configure Cluster**
     
-    ![Untitled](images/Untitled%2025.png)
+    ![Untitled](images/Untitled%2027.png)
     
     **Create a task definition and select launch type to be fargate**
     
-    ![Untitled](images/Untitled%2026.png)
+    ![Untitled](images/Untitled%2028.png)
     
     **Configure Container**
     
-    ![Untitled](images/Untitled%2027.png)
+    ![Untitled](images/Untitled%2029.png)
     
     **Configure container ports**
     
-    ![Untitled](images/Untitled%2028.png)
+    ![Untitled](images/Untitled%2030.png)
     
     **View Task Definition**
     
-    ![Untitled](images/Untitled%2029.png)
+    ![Untitled](images/Untitled%2031.png)
     
     **Create Service**
     
-    ![Untitled](images/Untitled%2030.png)
+    ![Untitled](images/Untitled%2032.png)
     
     **Launch the cluster in public subnet of your VPC**
     
-    ![Untitled](images/Untitled%2031.png)
+    ![Untitled](images/Untitled%2033.png)
     
     **Configure security group to allow traffic to the service being deployed**
     
-    ![Untitled](images/Untitled%2032.png)
+    ![Untitled](images/Untitled%2034.png)
     
     **View Service**
     
-    ![Untitled](images/Untitled%2033.png)
+    ![Untitled](images/Untitled%2035.png)
     
     **View Tasks**
     
-    ![Untitled](images/Untitled%2034.png)
+    ![Untitled](images/Untitled%2036.png)
     
     **Access the APIs through public IP**
     
     **API 1**
     
-    ![Untitled](images/Untitled%2035.png)
+    ![Untitled](images/Untitled%2037.png)
     
     **API 2**
     
-    ![Untitled](images/Untitled%2036.png)
+    ![Untitled](images/Untitled%2038.png)
     
 3. Create a S3 bucket and Upload Dockerfile of Q4 in the bucket using AWS CLI.
 
@@ -225,7 +284,7 @@ aws s3api create-bucket --bucket team-5-s3-dockerfile-bucket \
                      --region us-east-1
 ```
 
-![Untitled](images/Untitled%2037.png)
+![Untitled](images/Untitled%2039.png)
 
 Tag the bucket appropriately
 
@@ -239,11 +298,11 @@ aws s3api put-bucket-tagging --bucket team-5-s3-dockerfile-bucket \
 							{Key=Member3,Value="Samana Pokhrel"}]'
 ```
 
-![Untitled](images/Untitled%2038.png)
+![Untitled](images/Untitled%2040.png)
 
 View the bucket
 
-![Untitled](images/Untitled%2039.png)
+![Untitled](images/Untitled%2041.png)
 
 Upload the `Dockerfile`
 
@@ -257,11 +316,11 @@ aws s3api put-object --bucket team-5-s3-dockerfile-bucket  \
      --body /home/rimalroshan/cloud-day3/Dockerfile_nodeapi
 ```
 
-![Untitled](images/Untitled%2040.png)
+![Untitled](images/Untitled%2042.png)
 
 View the `Dockerfile` in `s3`
 
-![Untitled](images/Untitled%2041.png)
+![Untitled](images/Untitled%2043.png)
 
 If you need to delete a object then you can use the `s3api` `delete-object` command
 
@@ -269,4 +328,4 @@ If you need to delete a object then you can use the `s3api` `delete-object` comm
 aws s3api delete-object --bucket team-5-s3-dockerfile-bucket  --key Dockerfile_react
 ```
 
-![Untitled](images/Untitled%2042.png)
+![Untitled](images/Untitled%2044.png)

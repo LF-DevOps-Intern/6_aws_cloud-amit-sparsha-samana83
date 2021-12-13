@@ -15,7 +15,7 @@ Bucket ARN: `arn:aws:s3:::roshan-rimal-static-cloudfront-site`
 
 CloudFront Distribution ARM : `arn:aws:cloudfront::949263681218:distribution/E26JV4JLO3RAKA`
 
-CloudFront Distribution URL: `[roshan.lftassignment.tk](http://roshan.lftassignment.tk)`
+CloudFront Distribution URL: [roshan.lftassignment.tk](http://roshan.lftassignment.tk)
 
 Route 53 Hosted Zone Name: `lftassignment.tk`
 

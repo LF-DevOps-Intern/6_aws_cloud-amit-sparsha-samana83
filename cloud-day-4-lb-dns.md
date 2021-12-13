@@ -104,42 +104,140 @@ we can access the created server using our created load balancer's DNS name(i.e.
 
 ![Untitled](images/Untitled%2017.png)
 
-## will do these two after ALB part is complete
-Show nslookup result for your domain.
+To keep the process running even after exiting the `ssh` session we issue the following command:
 
-## Add R53 entry to map above created ALB at URL **alb.<team-name>.<your-domain>**
-
-Create route53 hosted zone
+```bash
+nohup python3 -m http.server 8880
+```
 
 ![Untitled](images/Untitled%2018.png)
 
-- Update the Nameservers to be Route 53 Nameservers
+Create route53 hosted zone
 
 ![Untitled](images/Untitled%2019.png)
 
-- Verify that the changes has been propagated
+- Update the Nameservers to be Route 53 Nameservers
 
 ![Untitled](images/Untitled%2020.png)
 
-Completely Propagated
+- Verify that the changes has been propagated
 
 ![Untitled](images/Untitled%2021.png)
 
-- Create `team-5` subdomain for the above domain
+Completely Propagated
 
-![https://i.imgur.com/3V740mr.png](https://i.imgur.com/3V740mr.png)
+![Untitled](images/Untitled%2022.png)
 
-![https://i.imgur.com/pyosKaQ.png](https://i.imgur.com/pyosKaQ.png)
+- Create another hosted zone for `team-5` subdomain of the above domain
 
-- Create ACM for above created R53 HZ with both top subdomain and its wild card ie **<team-name>.<your-domain>** and ***.<team-name>.<your-domain>**
-
-![https://i.imgur.com/8lmOPD5.png](https://i.imgur.com/8lmOPD5.png)
-
-- Update ALB
-    - Accept request only when **Host = alb.<team-name>.<your-domain>**, with default action response Code: 503, Message: “Unknown Request” on both HTTP and HTTPS requests.
-    - Enable HTTPS support.
-    - Redirect HTTP to HTTPS.
     
-- (Optional) Create Private Route53 zone with domain **<team-name>.vpc-local** and attach it to your VPC with DNS resolve enable.
-    - Add A Record to map Private EC2’s Private IP to **ec2.<team-name>.vpc-local**.
-    - Run telnet **ec2.<team-name>.vpc-local** 22, from public EC2 and verify it gets connected.
+
+![Untitled](images/Untitled%2023.png)
+
+Insert Alias Record in the form `alb.team-5.lftassignment.tk`
+
+![Untitled](images/Untitled%2024.png)
+
+Check using DNS Checker Again
+
+![Untitled](images/Untitled%2025.png)
+
+Access the Web Application using custom domain name
+
+![Untitled](images/Untitled%2026.png)
+
+Create ACM for above created R53 HZ with both top subdomain and its wild card ie **<team-name>.<your-domain>** and ***.<team-name>.<your-domain>**
+
+Create ACM certificate for `team-5.lftassignment.tk`
+
+![Untitled](images/Untitled%2027.png)
+
+Create ACM certificate for `*.team-5.lftassignment.tk`
+
+![Untitled](images/Untitled%2028.png)
+
+View the created certificates
+
+![Untitled](images/Untitled%2029.png)
+
+- Update ALB to accept request only when **Host = alb.<team-name>.<your-domain> for** HTTP listener.
+    
+    
+    ![Untitled](images/Untitled%2030.png)
+    
+
+Verify 
+
+![Untitled](images/Untitled%2031.png)
+
+- Update ALB to accept request only when **Host = alb.<team-name>.<your-domain> for** HTTPS listener.
+
+Add SSL certificate to https listener when creating the listener
+
+![Untitled](images/Untitled%2032.png)
+
+Serve the application only when host is `alb.team-5.lftassignment.tk`
+
+![Untitled](images/Untitled%2033.png)
+
+Verify
+
+![Untitled](images/Untitled%2034.png)
+
+- Set default action to send response Code: 503 with Message: “Unknown Request” on both HTTP and HTTPS requests.
+
+  For HTTP requests
+
+![Untitled](images/Untitled%2035.png)
+
+  
+
+Checking the default action
+
+![Untitled](images/Untitled%2036.png)
+
+For HTTPS requests
+
+![Untitled](images/Untitled%2037.png)
+
+Checking the default action for HTTPS
+
+![Untitled](images/Untitled%2038.png)
+
+- Redirect HTTP to HTTPS.
+
+![Untitled](images/Untitled%2039.png)
+
+Check the certificates
+
+ 
+
+![Untitled](images/Untitled%2040.png)
+
+- (Optional) Create Private Route53 with domain **<team-name>.vpc-local** and attach it to your VPC with DNS resolve enable.
+    
+    
+    Enable DNS Resolution
+    
+    ![Untitled](images/Untitled%2041.png)
+    
+    Enable DNS Hostname
+    
+    ![Untitled](images/Untitled%2042.png)
+    
+    Create a private Route53 hosted zone
+    
+    ![Untitled](images/Untitled%2043.png)
+    
+    Associate our VPC with the hosted zone
+    
+    ![Untitled](images/Untitled%2044.png)
+    
+
+- (Optional) Add A Record to map Private EC2’s Private IP to **ec2.<team-name>.vpc-local**.
+
+![Untitled](images/Untitled%2045.png)
+
+- (Optional) Run telnet **ec2.<team-name>.vpc-local** 22, from public EC2 and verify it gets connected.
+
+![Untitled](images/Untitled%2046.png)

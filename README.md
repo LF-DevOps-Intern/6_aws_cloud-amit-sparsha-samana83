@@ -1,11 +1,11 @@
 Task 1 : API Gateway and Lambda
 
-[Solution Here]("Cloud Day 8 API Gateway.md") 
+[Solution Here](Cloud%20Day%208%20API%20Gateway.md) 
 
 
 Task 2 : CI CD
 
-[Solution Here]("Cloud Day 8 CI CD.md")
+[Solution Here](Cloud%20Day%208%20CI%20CD.md)
 
 [Lambda Deploy Script Here](deploy.sh)
 

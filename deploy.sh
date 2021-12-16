@@ -2,7 +2,7 @@
 
 cd lambda
 
-# For first function
+# For first function       
 # Check if function exists or not and proceed accordingly
 
 timeout 10 aws lambda wait function-exists --function-name roshan-rimal-hello
